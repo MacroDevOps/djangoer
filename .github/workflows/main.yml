@@ -14,5 +14,5 @@ jobs:
       - name: Build image
         run: |
           docker-compose up --build -d
-          sleep 120
+          sleep 20
           docker-compose down

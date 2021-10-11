@@ -112,7 +112,7 @@ services:
       retries: 6
 
   beat:
-    image: macroldj/devops:v1.0.1
+    image: macroldj/flow:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
