@@ -1,5 +1,9 @@
+from django.core.cache import cache
 from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from djangoer.settings import logger
 from . import tasks
 from .models import UserProfile
 from rest_framework import serializers, viewsets
@@ -21,3 +25,17 @@ class UserViewSet(viewsets.ModelViewSet):
 def send_email(request, *args, **kwargs):
     res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com",])
     return JsonResponse({'status': 'successful', 'task_id': res.task_id})
+
+
+class MyBase(APIView):
+    """
+    最基础的API测试连接。
+    """
+    def get(self, request):
+        if cache.get("message"):
+            logger.warning("{user}: 发布了devops最新系统".format(user=request.user))
+            return Response({"message": cache.get("message")})
+        else:
+            cache.set("message", "Ha Ha", timeout=10)
+            print("设置缓存")
+            return Response({"message": "Ha Ha"})

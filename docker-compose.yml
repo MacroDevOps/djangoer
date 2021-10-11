@@ -60,6 +60,7 @@ services:
     working_dir: /home/workspace
     volumes:
       - ./media/temp:/home/workspace/media/temp
+      - ./logs:/home/workspace/logs
       - ./db.sqlite3:/home/workspace/db.sqlite3
     command: ["python","manage.py","runserver","0.0.0.0:8000"]
     depends_on:
@@ -93,6 +94,8 @@ services:
     working_dir: /home/workspace
     command: ["celery","-A","djangoer","worker","-l","info","--beat"]
     volumes:
+      - ./logs:/home/workspace/logs
+      - ./package:/home/workspace/package
       - ./db.sqlite3:/home/workspace/db.sqlite3
     depends_on:
       - rabbitmq

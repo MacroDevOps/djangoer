@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="flow" type="PythonConfigurationType" factoryName="Python" singleton="false">
+  <configuration default="false" name="djangoer" type="PythonConfigurationType" factoryName="Python" singleton="false">
     <module name="djangoer" />
     <option name="INTERPRETER_OPTIONS" value="manage.py runserver" />
     <option name="PARENT_ENVS" value="true" />

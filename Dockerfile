@@ -7,8 +7,7 @@ RUN sed -i 's/http\:\/\/deb.debian.org/https\:\/\/mirrors.aliyun.com/g' /etc/apt
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /home/workspace
 ADD ./requirements.txt /tmp/requirements.txt
-RUN pip3 install --upgrade pip \
-    && pip3 install --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com \
+RUN pip3 install --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com \
                                  -r /tmp/requirements.txt && rm -rf /tmp/requirements.txt
 COPY . .
 CMD ["/bin/bash"]
