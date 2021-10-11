@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 import datetime
+import logging
 import os
+import time
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import sys
@@ -238,3 +240,55 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+# django logs settings
+LOGS_DIR = os.path.join(BASE_DIR, "logs")
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(lineno)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(module)s %(lineno)d %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            # 实际开发建议使用WARNING
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            # 实际开发建议使用WARNING
+            'level': 'WARNING',
+            'class': 'logging.handlers.RotatingFileHandler',
+            # 使用每天的方式进行归档当前的日志记录。
+            'filename': os.path.join(LOGS_DIR, "{data}_log.log".format(data=time.strftime('%Y_%m_%d'))),
+            # 日志文件的最大值,这里我们设置300M
+            'maxBytes': 300 * 1024 * 1024,
+            # 日志文件的数量,设置最大日志数量为10
+            'backupCount': 10,
+            # 日志格式:详细格式
+            'formatter': 'verbose',
+            # 文件内容编码
+            'encoding': 'utf-8'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'propagate': True,
+        },
+    }
+}
+
+logger = logging.getLogger('django')
