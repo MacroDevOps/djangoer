@@ -23,7 +23,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 def send_email(request, *args, **kwargs):
-    res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com",])
+    res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com", ])
     return JsonResponse({'status': 'successful', 'task_id': res.task_id})
 
 
@@ -31,6 +31,7 @@ class MyBase(APIView):
     """
     最基础的API测试连接。
     """
+
     def get(self, request):
         if cache.get("message"):
             logger.warning("{user}: 发布了devops最新系统".format(user=request.user))
