@@ -10,17 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy djangoer on tenxuncloud server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.TENXUNYUN_HOST_1 }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.TENXUNCLOUD_PASSWD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ~/devops
-            sudo git reset --hard origin/main
-            git pull
-            sudo git reset --hard origin/main
-            docker-compose down
-            docker-compose up --build -d
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: |
+          docker-compose up --build -d
+          sleep 120
+          docker-compose down
