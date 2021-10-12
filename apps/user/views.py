@@ -40,3 +40,9 @@ class MyBase(APIView):
             cache.set("message", "Ha Ha", timeout=10)
             print("设置缓存")
             return Response({"message": "Ha Ha"})
+
+
+class SendEmail(APIView):
+    def get(self, request):
+        res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com", ])
+        return JsonResponse({'status': 'successful', 'task_id': res.task_id})

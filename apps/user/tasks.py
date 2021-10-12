@@ -4,7 +4,7 @@ from abc import ABC
 from celery import Task
 from django.core.mail import send_mail
 
-from djangoer.settings import EMAIL_HOST, EMAIL_FROM
+from djangoer.settings import EMAIL_FROM
 from djangoer.celery import app
 
 
