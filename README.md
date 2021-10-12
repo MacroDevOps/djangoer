@@ -18,3 +18,15 @@ git clone https://github.com/MacroDevOps/djangoer.git
 ```shell
 docker-compose up -d
 ```
+3. 体验页面
+```shell
+# 首页
+http://127.0.0.1/
+
+# 文档页面
+http://127.0.0.1/docs/
+
+# admin 页面 
+http://127.0.0.1/xadmin/
+# username: lidj passwd:12345
+```
