@@ -44,5 +44,7 @@ class MyBase(APIView):
 
 class SendEmail(APIView):
     def get(self, request):
-        res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com", ])
+        title = request.GET.get('title', None)
+        message = request.GET.get('message', None)
+        res = tasks.send_email.delay(title, message, ["dejinx@qq.com", ])
         return JsonResponse({'status': 'successful', 'task_id': res.task_id})

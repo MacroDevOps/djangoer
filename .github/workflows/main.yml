@@ -14,5 +14,6 @@ jobs:
       - name: Build image
         run: |
           docker-compose up --build -d
-          sleep 20
+          sleep 30
+          wget http://127.0.0.1/user/send_email?title=github&message=action_successful
           docker-compose down
