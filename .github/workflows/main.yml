@@ -15,5 +15,5 @@ jobs:
         run: |
           docker-compose up --build -d
           sleep 30
-          wget http://127.0.0.1/user/send_email?title=github&message=action_successful
+          wget http://127.0.0.1/user/send_email?title=github&message=successful
           docker-compose down
