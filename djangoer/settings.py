@@ -176,7 +176,6 @@ REST_FRAMEWORK = {
 }
 
 # CELERY settings
-
 CELERY_BROKER_URL = "amqp://{username}:{password}@{rabbitmq}".format(
     rabbitmq=os.environ.get("RABBITMQ_IP", "localhost"),
     username=os.environ.get("RABBITMQ_USERNAME", "admin"),
@@ -192,6 +191,9 @@ enable_utc = False
 CELERY_FORCE_EXECV = True
 CELERY_ACKS_LATE = True
 CELERY_MAX_TASKS_PER_CHILD = 100
+CELERY_ENABLE_UTC = True
+CELERY_TIMEZONE = 'Asia/Shanghai'
+CELERY_DEFAULT_QUEUE = 'work_queue'
 CELERY_QUEUE = {
     'beat_queue': {
         'exchange': 'beat_queue',
@@ -204,10 +206,6 @@ CELERY_QUEUE = {
         'binding_key': 'work_queue'
     }
 }
-
-CELERY_DEFAULT_QUEUE = 'work_queue'
-CELERY_ENABLE_UTC = True
-CELERY_TIMEZONE = 'Asia/Shanghai'
 
 
 # setting token
@@ -248,9 +246,6 @@ LOGGING = {
         'verbose': {
             'format': '[%(levelname)s] : %(asctime)s %(module)s %(lineno)d %(message)s'
         },
-        'simple': {
-            'format': '[%(levelname)s] : %(module)s %(lineno)d %(message)s'
-        },
     },
     'filters': {
         'require_debug_true': {
@@ -262,7 +257,7 @@ LOGGING = {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'verbose'
         },
         'warning': {
             'level': 'WARNING',
@@ -279,7 +274,7 @@ LOGGING = {
             'filename': os.path.join(LOGS_DIR, "{data}_info.log".format(data=time.strftime('%Y_%m_%d'))),
             'maxBytes': 300 * 1024 * 1024,
             'backupCount': 10,
-            'formatter': 'simple',
+            'formatter': 'verbose',
             'encoding': 'utf-8'
         },
     },
