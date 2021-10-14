@@ -16,7 +16,7 @@ git clone https://github.com/MacroDevOps/djangoer.git
 ```
 2. docker-compose up 启动服务。
 ```shell
-docker-compose up -d
+docker-compose up --build -d
 ```
 3. 体验页面
 ```shell
