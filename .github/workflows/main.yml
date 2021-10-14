@@ -1,0 +1,19 @@
+name: durgin djangoer github aciton
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: |
+          docker-compose up --build -d
+          sleep 30
+          wget http://127.0.0.1/user/send_email?title=github&message=successful
+          docker-compose down
