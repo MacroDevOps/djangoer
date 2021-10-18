@@ -62,7 +62,7 @@ services:
       - ./media/temp:/home/workspace/media/temp
       - ./logs:/home/workspace/logs
       - ./db.sqlite3:/home/workspace/db.sqlite3
-    command: ["python","manage.py","runserver","0.0.0.0:8000"]
+    command: ["uwsgi","--ini","uwsgi.ini"]
     depends_on:
       - rabbitmq
       - redis

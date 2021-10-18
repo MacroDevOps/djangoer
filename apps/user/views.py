@@ -30,6 +30,7 @@ def send_email(request, *args, **kwargs):
 class MyBase(APIView):
     """
     最基础的API测试连接。
+
     """
 
     def get(self, request):
