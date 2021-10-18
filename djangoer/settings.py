@@ -138,10 +138,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-REGEX_MOBILE = ''
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 # Redis cache configure
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",

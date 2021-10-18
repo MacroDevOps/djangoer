@@ -1,1 +1,2 @@
-flower --broker=amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RABBITMQ_IP}:5672//
+uwsgi --ini uwsgi.ini
+tail -f ./logs/uwsgi.log
