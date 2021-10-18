@@ -29,6 +29,7 @@ services:
       - '80:80'
     volumes:
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./static:/home/static"
     environment:
       - DJANGO=django
     depends_on:
