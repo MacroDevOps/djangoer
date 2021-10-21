@@ -30,5 +30,3 @@ http://127.0.0.1/docs/
 http://127.0.0.1/xadmin/
 # username: lidj passwd:12345
 ```
-
-aaxxx
