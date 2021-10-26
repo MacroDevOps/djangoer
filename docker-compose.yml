@@ -43,7 +43,7 @@ services:
   django:
     build:
       context: .
-    image: macroldj/flow:v1.0.1
+    image: macroldj/djangoer:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
@@ -77,7 +77,7 @@ services:
       retries: 6
 
   celery:
-    image: macroldj/flow:v1.0.1
+    image: macroldj/djangoer:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
@@ -113,7 +113,7 @@ services:
       retries: 6
 
   beat:
-    image: macroldj/flow:v1.0.1
+    image: macroldj/djangoer:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
