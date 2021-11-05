@@ -4,7 +4,6 @@ from django.db import models
 from django.db.models.sql.query import LOOKUP_SEP
 from django.db.models.deletion import Collector
 from django.db.models.fields.related import ForeignObjectRel
-from django.forms.forms import pretty_name
 from django.utils import formats, six
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
@@ -21,7 +20,7 @@ import datetime
 import decimal
 
 if 'django.contrib.staticfiles' in settings.INSTALLED_APPS:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
 else:
     from django.templatetags.static import static
 
@@ -277,9 +276,10 @@ def is_rel_field(name, model):
 
 def lookup_field(name, obj, model_admin=None):
     opts = obj._meta
+    from django.core.exceptions import FieldDoesNotExist
     try:
         f = opts.get_field(name)
-    except models.FieldDoesNotExist:
+    except FieldDoesNotExist:
         # For non-field values, the value is either a method, property or
         # returned via a callable.
         if callable(name):

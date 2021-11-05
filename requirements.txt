@@ -7,7 +7,7 @@ coreapi==2.3.3
 coreschema==0.0.4
 defusedxml==0.7.1
 diff-match-patch==20200713
-Django==2.2.13
+Django==3.2.9
 django-celery-beat==2.2.0
 django-celery-results==2.0.1
 django-cors-headers==3.7.0

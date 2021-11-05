@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'djangoer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -147,7 +147,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "localhost")),
+        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "192.168.174.132")),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
