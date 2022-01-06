@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from djangoer.settings import logger
+from fuservice.settings import custom_log
 from . import tasks
 from .models import UserProfile
 from rest_framework import serializers, viewsets
@@ -32,10 +32,9 @@ class MyBase(APIView):
     最基础的API测试连接。
 
     """
-
     def get(self, request):
+        custom_log.info("{user}: 发布了devops最新系统".format(user=request.user))
         if cache.get("message"):
-            logger.warning("{user}: 发布了devops最新系统".format(user=request.user))
             return Response({"message": cache.get("message")})
         else:
             cache.set("message", "Ha Ha", timeout=10)

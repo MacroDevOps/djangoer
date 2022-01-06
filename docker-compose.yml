@@ -43,7 +43,7 @@ services:
   django:
     build:
       context: .
-    image: macroldj/djangoer:v1.0.1
+    image: macroldj/fuservice:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
@@ -77,7 +77,7 @@ services:
       retries: 6
 
   celery:
-    image: macroldj/djangoer:v1.0.1
+    image: macroldj/fuservice:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
@@ -93,7 +93,7 @@ services:
       - REDIS_IP=redis
       - SENTRY_IP=192.168.1.5
     working_dir: /home/workspace
-    command: ["celery","-A","djangoer","worker","-l","info"]
+    command: ["celery","-A","fuservice","worker","-l","info"]
     volumes:
       - ./logs:/home/workspace/logs
       - ./package:/home/workspace/package
@@ -113,7 +113,7 @@ services:
       retries: 6
 
   beat:
-    image: macroldj/djangoer:v1.0.1
+    image: macroldj/fuservice:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
@@ -129,7 +129,7 @@ services:
       - REDIS_IP=redis
       - SENTRY_IP=192.168.1.5
     working_dir: /home/workspace
-    command: ["celery","-A","djangoer","beat", "-l", "info"]
+    command: ["celery","-A","fuservice","beat", "-l", "info"]
     volumes:
       - ./db.sqlite3:/home/workspace/db.sqlite3
     depends_on:

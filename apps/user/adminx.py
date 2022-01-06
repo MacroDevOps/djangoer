@@ -87,7 +87,7 @@ class BaseSetting(object):
 
 class GlobalSettings(object):
     site_title = "Flow"
-    site_footer = "djangoer@durgin.cn"
+    site_footer = "fuservice@durgin.cn"
     menu_style = "accordion"
 
 

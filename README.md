@@ -12,7 +12,7 @@ Encapsulated django restful api basic template
 
 1. 下载代码
 ```shell
-git clone https://github.com/MacroDevOps/djangoer.git
+git clone https://github.com/MacroDevOps/fuservice.git
 ```
 2. docker-compose up 启动服务。
 ```shell

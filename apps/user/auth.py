@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend, UserModel
 from rest_framework.permissions import BasePermission
 
-from djangoer.settings import LDAP_URL
+from fuservice.settings import LDAP_URL
 
 User = get_user_model()
 

@@ -1,4 +1,4 @@
-"""djangoer URL Configuration
+"""fuservice URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -20,7 +20,7 @@ from rest_framework import routers
 from rest_framework.documentation import include_docs_urls
 
 import xadmin
-from djangoer import settings
+from fuservice import settings
 
 router = routers.DefaultRouter()
 
