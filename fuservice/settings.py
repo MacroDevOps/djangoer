@@ -291,7 +291,6 @@ LOGGING = {
         },
     }
 }
-
 custom_log = logging.getLogger('custom')
 
 # FUService config
