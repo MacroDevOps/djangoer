@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="djangoer" type="PythonConfigurationType" factoryName="Python" singleton="false">
-    <module name="djangoer" />
+    <module name="fuservice" />
     <option name="INTERPRETER_OPTIONS" value="manage.py runserver" />
     <option name="PARENT_ENVS" value="true" />
     <envs>

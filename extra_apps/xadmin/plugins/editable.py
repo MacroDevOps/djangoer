@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.admin.utils import label_for_field
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import models, transaction
 from django.forms.models import modelform_factory
@@ -10,7 +11,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from xadmin.plugins.ajax import JsonErrorDict
 from xadmin.sites import site
-from xadmin.util import lookup_field, display_for_field, label_for_field, unquote, boolean_icon
+from xadmin.util import lookup_field, display_for_field, unquote, boolean_icon
 from xadmin.views import BaseAdminPlugin, ModelFormAdminView, ListAdminView
 from xadmin.views.base import csrf_protect_m, filter_hook
 from xadmin.views.edit import ModelFormAdminUtil

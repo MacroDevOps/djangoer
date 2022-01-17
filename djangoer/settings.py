@@ -143,11 +143,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 # Redis cache configure
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "localhost")),
+        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "101.34.237.89")),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
