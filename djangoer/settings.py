@@ -264,10 +264,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
-        'warning': {
-            'level': 'WARNING',
+        'custom': {
+            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGS_DIR, "{data}_warning.log".format(data=time.strftime('%Y_%m_%d'))),
+            'filename': os.path.join(LOGS_DIR, "{data}_custom.log".format(data=time.strftime('%Y_%m_%d'))),
             'maxBytes': 300 * 1024 * 1024,
             'backupCount': 10,
             'formatter': 'verbose',
@@ -285,10 +285,14 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'warning', 'info'],
+            'handlers': ['info'],
+            'propagate': True,
+        },
+        'custom': {
+            'handlers': ['custom'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
 }
-
-logger = logging.getLogger('django')
+logger = logging.getLogger('custom')
