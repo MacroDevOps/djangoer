@@ -276,7 +276,7 @@ LOGGING = {
         'info': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGS_DIR, "{data}_info.log".format(data=time.strftime('%Y_%m_%d'))),
+            'filename': os.path.join(LOGS_DIR, "{data}_system.log".format(data=time.strftime('%Y_%m_%d'))),
             'maxBytes': 300 * 1024 * 1024,
             'backupCount': 10,
             'formatter': 'verbose',
@@ -295,4 +295,4 @@ LOGGING = {
         },
     }
 }
-logger = logging.getLogger('custom')
+custom_log = logging.getLogger('custom')

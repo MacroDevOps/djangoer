@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from djangoer.settings import logger
+from djangoer.settings import custom_log
 from . import tasks
 from .models import UserProfile
 from rest_framework import serializers, viewsets
@@ -35,7 +35,7 @@ class MyBase(APIView):
 
     def get(self, request):
         if cache.get("message"):
-            logger.warning("{user}: 发布了devops最新系统".format(user=request.user))
+            custom_log.warning("{user}: 发布了devops最新系统".format(user=request.user))
             return Response({"message": cache.get("message")})
         else:
             cache.set("message", "Ha Ha", timeout=10)
