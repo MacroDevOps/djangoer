@@ -6,6 +6,8 @@ RUN sed -i 's/http\:\/\/deb.debian.org/https\:\/\/mirrors.aliyun.com/g' /etc/apt
  && apt-get install -y curl gcc vim \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /home/workspace
+RUN adduser -D django
+USER django
 RUN pip3 install --upgrade pip --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/
 ADD ./requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com \
