@@ -3,6 +3,7 @@ import copy
 
 from crispy_forms.utils import TEMPLATE_PACK
 from django import forms
+from django.contrib.admin.utils import label_for_field
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import models
@@ -10,14 +11,14 @@ from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template import loader
 from django.template.response import TemplateResponse
-from django.utils import six
+import six
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.utils.html import conditional_escape
 from xadmin.layout import FormHelper, Layout, Fieldset, Container, Column, Field, Col, TabHolder
-from xadmin.util import unquote, lookup_field, display_for_field, boolean_icon, label_for_field
+from xadmin.util import unquote, lookup_field, display_for_field, boolean_icon
 
 from .base import ModelAdminView, filter_hook, csrf_protect_m
 

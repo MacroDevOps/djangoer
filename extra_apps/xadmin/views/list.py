@@ -1,19 +1,21 @@
 from __future__ import absolute_import
 from collections import OrderedDict
+
+from django.contrib.admin.utils import label_for_field
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.paginator import InvalidPage, Paginator
 from django.urls.base import NoReverseMatch
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.template.response import SimpleTemplateResponse, TemplateResponse
-from django.utils import six
+import six
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
-from xadmin.util import lookup_field, display_for_field, label_for_field, boolean_icon
+from xadmin.util import lookup_field, display_for_field, boolean_icon
 
 from .base import ModelAdminView, filter_hook, inclusion_tag, csrf_protect_m
 

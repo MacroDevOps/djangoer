@@ -3,6 +3,7 @@ import calendar
 import datetime
 import decimal
 
+from django.contrib.admin.utils import label_for_field
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.http import HttpResponse, HttpResponseNotFound
@@ -15,7 +16,7 @@ from xadmin.plugins.utils import get_context_dict
 from xadmin.sites import site
 from xadmin.views import BaseAdminPlugin, ListAdminView
 from xadmin.views.dashboard import ModelBaseWidget, widget_manager
-from xadmin.util import lookup_field, label_for_field, json
+from xadmin.util import lookup_field, json
 
 
 @widget_manager.register
@@ -155,6 +156,7 @@ class ChartsView(ListAdminView):
         result = json.dumps(content, cls=JSONEncoder, ensure_ascii=False)
 
         return HttpResponse(result)
+
 
 site.register_plugin(ChartsPlugin, ListAdminView)
 site.register_modelview(r'^chart/(.+)/$', ChartsView, name='%s_%s_chart')

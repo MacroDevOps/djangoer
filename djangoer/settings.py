@@ -143,17 +143,20 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 # Redis cache configure
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "localhost")),
+        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "101.34.237.89")),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
         'TIMEOUT': 300,
     }
 }
+
+# database settings
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
@@ -261,10 +264,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
-        'warning': {
-            'level': 'WARNING',
+        'custom': {
+            'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGS_DIR, "{data}_warning.log".format(data=time.strftime('%Y_%m_%d'))),
+            'filename': os.path.join(LOGS_DIR, "{data}_custom.log".format(data=time.strftime('%Y_%m_%d'))),
             'maxBytes': 300 * 1024 * 1024,
             'backupCount': 10,
             'formatter': 'verbose',
@@ -273,7 +276,7 @@ LOGGING = {
         'info': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGS_DIR, "{data}_info.log".format(data=time.strftime('%Y_%m_%d'))),
+            'filename': os.path.join(LOGS_DIR, "{data}_system.log".format(data=time.strftime('%Y_%m_%d'))),
             'maxBytes': 300 * 1024 * 1024,
             'backupCount': 10,
             'formatter': 'verbose',
@@ -282,10 +285,14 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'warning', 'info'],
+            'handlers': ['info'],
+            'propagate': True,
+        },
+        'custom': {
+            'handlers': ['custom'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
 }
-
-logger = logging.getLogger('django')
+custom_log = logging.getLogger('custom')

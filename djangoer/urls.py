@@ -26,7 +26,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^user', include('user.urls', namespace="user")),
+    url(r'^user/', include('user.urls', namespace="user")),
     url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^docs/', include_docs_urls(title="DevOps API Docs"), name="docs"),
