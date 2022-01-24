@@ -2,6 +2,9 @@
 - [ ] support SSO for DRF
 - [ ] Upgrade to Django 4.0 support Async
 
+# Version 1.1.1 (2022-01-24)
+- [ ] add ci script to docker dir
+
 # Version 1.1.0 (2022-01-17)
 - [x] add custom logs file by myself format.
 - [x] fixed xadmin debug.
