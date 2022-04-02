@@ -8,7 +8,7 @@ RUN sed -i 's/http\:\/\/deb.debian.org/https\:\/\/mirrors.aliyun.com/g' /etc/apt
 WORKDIR /home/workspace
 RUN adduser -D django
 USER django
-RUN pip3 install --upgrade pip --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip3 install --upgrade pip, uwsgi==2.0.20 --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/
 ADD ../requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir  -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com \
                                  -r /tmp/requirements.txt && rm -rf /tmp/requirements.txt

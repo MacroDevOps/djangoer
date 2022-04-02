@@ -1,12 +1,12 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="djangoer" type="PythonConfigurationType" factoryName="Python" singleton="false">
-    <module name="fuservice" />
+    <module name="djangoer" />
     <option name="INTERPRETER_OPTIONS" value="manage.py runserver" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
     </envs>
-    <option name="SDK_HOME" value="E:\workspace\djangoer\venv\Scripts\python.exe" />
+    <option name="SDK_HOME" value="E:\codespace\djangoer\venv\Scripts\python.exe" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />

@@ -15,10 +15,20 @@ import os
 import time
 import sys
 
+import nacos
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
+
+# NACOS config settings
+SERVER_ADDRESSES = "http://100.64.10.89:8848"
+NAMESPACE = "public"
+client = nacos.NacosClient("http://{nacos}".format(
+        nacos=os.environ.get("NACOS_HOST", "101.34.237.89:8848")), namespace="public",
+        username="{username}".format(username=os.environ.get("NACOS_USER", "nacos")),
+        password="{password}".format(password=os.environ.get("NACOS_PASSWORD", "nacos")))
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -95,6 +105,17 @@ WSGI_APPLICATION = 'djangoer.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+# config_mysql_nacos=yaml.load(client.get_config("config-mysql.yaml", "DEFAULT_GROUP"), Loader=yaml.FullLoader)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': config_mysql_nacos["django"]["dbname"],
+#         'USER': config_mysql_nacos["django"]["username"],
+#         'PASSWORD': config_mysql_nacos["django"]["password"],
+#         'HOST': config_mysql_nacos["django"]["host"],
+#         'PORT': config_mysql_nacos["django"]["port"],
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -144,10 +165,22 @@ STATICFILES_DIRS = (
 )
 # Redis cache configure
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# config_redis_nacos=yaml.load(client.get_config("config-mysql.yaml", "DEFAULT_GROUP"), Loader=yaml.FullLoader)
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": config_redis_nacos["django"]["host"],
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         },
+#         'TIMEOUT': 300,
+#     }
+# }
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "101.34.237.89")),
+        "LOCATION": "redis://{redis}:6379".format(redis=os.environ.get("REDIS_IP", "139.155.4.2")),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
@@ -181,6 +214,14 @@ REST_FRAMEWORK = {
 }
 
 # CELERY settings
+# config_rabbitmq_nacos=yaml.load(client.get_config("config-rabbitmq.yaml", "DEFAULT_GROUP"), Loader=yaml.FullLoader)
+# CELERY_BROKER_URL = "amqp://{username}:{password}@{rabbitmq}:{port}".format(
+#     rabbitmq=config_rabbitmq_nacos["django"]["rabbitmq"]["host"],
+#     username=config_rabbitmq_nacos["django"]["rabbitmq"]["username"],
+#     password=config_rabbitmq_nacos["django"]["rabbitmq"]["password"],
+#     port=config_rabbitmq_nacos["django"]["rabbitmq"]["port"],
+# )
+
 CELERY_BROKER_URL = "amqp://{username}:{password}@{rabbitmq}".format(
     rabbitmq=os.environ.get("RABBITMQ_IP", "localhost"),
     username=os.environ.get("RABBITMQ_USERNAME", "admin"),
