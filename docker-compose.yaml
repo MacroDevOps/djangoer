@@ -127,17 +127,9 @@ services:
     ports:
       - "5555:5555"
     environment:
-      - DEBUG=${DEBUG}
-      - DATABASE_IP=${DATABASE_IP}
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASSWD=${DATABASE_PASSWD}
-      - DATABASE_PORT=${DATABASE_PORT}
-      - REDIS_IP=${REDIS_IP}
-      - REDIS_PORT=${REDIS_PORT}
       - RABBITMQ_IP=${RABBITMQ_IP}
       - RABBITMQ_USER=${RABBITMQ_USER}
       - RABBITMQ_PASSWD=${RABBITMQ_PASSWD}
-      - SENTRY_URL=${SENTRY_URL}
     healthcheck:
       test: curl --fail http://127.0.0.1:5555||exit 1
       interval: 50s
