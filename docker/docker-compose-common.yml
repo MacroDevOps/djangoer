@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:4.0.2
+    restart: always
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 30s
+      retries: 6
+
+  rabbitmq:
+    image: rabbitmq:3.9.13
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+    healthcheck:
+      test: rabbitmqctl status
+      interval: 60s
+      timeout: 90s
+      retries: 6
+
+  postgresql:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: lidj
+      POSTGRES_DB: flow
+      POSTGRES_PASSWORD: xiaoxiao
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data

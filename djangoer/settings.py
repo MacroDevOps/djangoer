@@ -102,6 +102,17 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# postgresql settings database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get("DATABASE_NAME",'accounta'),
+#         'USER': os.environ.get("DATABASE_USER",'lidj'),
+#         'PASSWORD': os.environ.get("DATABASE_PASSWD",'RES4OnlVdi4pLLgM%A'),
+#         'HOST': '{database_ip}'.format(database_ip=os.environ.get("DATABASE_IP", "101.34.237.89")),
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -183,15 +194,15 @@ REST_FRAMEWORK = {
 # CELERY settings
 CELERY_BROKER_URL = "amqp://{username}:{password}@{rabbitmq}".format(
     rabbitmq=os.environ.get("RABBITMQ_IP", "localhost"),
-    username=os.environ.get("RABBITMQ_USERNAME", "admin"),
-    password=os.environ.get("RABBITMQ_PASSWORD", "admin"), )
+    username=os.environ.get("RABBITMQ_USER", "admin"),
+    password=os.environ.get("RABBITMQ_PASSWD", "admin"), )
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERYD_CONCURRENCY = 3
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-CELERYBEAT_SCHEDULER='django_celery_beat.schedulers.DatabaseScheduler'
+CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 enable_utc = False
 CELERY_FORCE_EXECV = True
 CELERY_ACKS_LATE = True
@@ -212,7 +223,6 @@ CELERY_QUEUE = {
     }
 }
 
-
 # setting token
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
@@ -221,15 +231,15 @@ JWT_AUTH = {
 
 # EMAIL SERVER SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = 'macroldj@163.com'
-EMAIL_HOST_PASSWORD = 'QJRQTXBXUOVTQNAK'
-EMAIL_FROM = 'djangoer system <macroldj@163.com>'
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.163.com")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 25)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "macroldj@163.com")
+EMAIL_HOST_PASSWD = os.environ.get("EMAIL_HOST_PASSWD", "QJRQTXBXUOVTQNAK")
+EMAIL_FROM = os.environ.get("EMAIL_FROM", "djangoer system <macroldj@163.com>")
 
 # Sentry service integration
 sentry_sdk.init(
-    dsn="http://1778195445e8421ca31ff2be70014bfe@100.64.10.49/2",
+    dsn=os.environ.get("SENTRY_URL", "http://1778195445e8421ca31ff2be70014bfe@100.64.10.49/2"),
     integrations=[DjangoIntegration(), CeleryIntegration(), RedisIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
