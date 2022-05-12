@@ -21,12 +21,12 @@ services:
 
   django:
     build:
-      context: ..
+      context: .
     image: macroldj/djangoer:v1.0.1
     restart: "always"
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 1
       resources:
         limits:
           cpus: '0.5'
@@ -60,7 +60,7 @@ services:
     restart: "always"
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           cpus: '0.5'
@@ -84,7 +84,7 @@ services:
       - ./package:/home/workspace/package
       - ./db.sqlite3:/home/workspace/db.sqlite3
     healthcheck:
-      test: celery inspect ping -b amqp://admin:admin@rabbitmq:5672 -d celery@$$HOSTNAME || exit 1
+      test: celery inspect ping -b amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWD}@${RABBITMQ_IP}:5672 -d celery@$$HOSTNAME || exit 1
       interval: 20s
       timeout: 5s
       retries: 6
@@ -116,7 +116,7 @@ services:
     volumes:
       - ./db.sqlite3:/home/workspace/db.sqlite3
     healthcheck:
-      test: celery inspect ping -b amqp://admin:admin@rabbitmq:5672 -d celery@$$HOSTNAME || exit 1
+      test: celery inspect ping -b amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWD}@${RABBITMQ_IP}:5672 -d celery@$$HOSTNAME || exit 1
       interval: 20s
       timeout: 5s
       retries: 6
@@ -139,7 +139,7 @@ services:
       - RABBITMQ_PASSWD=${RABBITMQ_PASSWD}
       - SENTRY_URL=${SENTRY_URL}
     healthcheck:
-      test: celery inspect ping -b amqp://admin:admin@rabbitmq:5672 || exit 1
-      interval: 10s
+      test: curl --fail http://127.0.0.1:5555||exit 1
+      interval: 50s
       timeout: 5s
       retries: 6

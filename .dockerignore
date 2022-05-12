@@ -1,5 +1,5 @@
 README.md
-/.idea/
-/.github/
-/.dockerignore
-/.run/
+.idea
+.github
+.dockerignore
+.run
