@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from collections import OrderedDict
 
 from django.contrib.admin.utils import label_for_field
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, FieldDoesNotExist
 from django.core.paginator import InvalidPage, Paginator
 from django.urls.base import NoReverseMatch
 from django.db import models
@@ -224,7 +224,7 @@ class ListAdminView(ModelAdminView):
                 for field_name in self.list_display:
                     try:
                         field = self.opts.get_field(field_name)
-                    except models.FieldDoesNotExist:
+                    except :
                         pass
                     else:
                         if isinstance(field.remote_field, models.ManyToOneRel):
@@ -261,7 +261,7 @@ class ListAdminView(ModelAdminView):
         try:
             field = self.opts.get_field(field_name)
             return field.name
-        except models.FieldDoesNotExist:
+        except FieldDoesNotExist:
             # See whether field_name is a name of a non-field
             # that allows sorting.
             if callable(field_name):
