@@ -4,3 +4,4 @@ venv
 media
 redis_data
 logs
+.env
