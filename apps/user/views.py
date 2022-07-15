@@ -32,13 +32,12 @@ class MyBase(APIView):
     最基础的API测试连接。
 
     """
-
-    def get(self, request):
+    def get(self, request, name):
         if cache.get("message"):
             custom_log.warning("{user}: 发布了devops最新系统".format(user=request.user))
             return Response({"message": cache.get("message")})
         else:
-            cache.set("message", "Ha Ha", timeout=10)
+            cache.set("message", f"{name} Ha Ha", timeout=10)
             print("设置缓存")
             return Response({"message": "Ha Ha"})
 
