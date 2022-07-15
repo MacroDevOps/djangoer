@@ -1,4 +1,4 @@
-name: durgin djangoer github aciton
+name: durgin devops aciton
 
 on:
   push:
@@ -13,7 +13,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build image
         run: |
-          docker-compose -f docker/docker-compose.yaml up --build -d
+          export DEVOPS_IMAGE_VERSION=macroldj/devops:v1.0.1
+          make prod
           sleep 30
-          wget http://127.0.0.1/user/send_email?title=github&message=successful
-          docker-compose down
+          wget http://127.0.0.1/user/semail/?title=github%20Action&message=%22ci%20successful%22
+          sleep 30
+          make down
