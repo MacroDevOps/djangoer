@@ -259,8 +259,13 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '[%(levelname)s] : %(asctime)s %(module)s %(lineno)d %(message)s'
+            'format': '[%(levelname)s] : %(asctime)s %(module)s %(lineno)d %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
         },
+        'custom': {
+            'format': 'custom : %(asctime)s %(module)s %(lineno)d %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
     },
     'filters': {
         'require_debug_true': {
@@ -269,7 +274,7 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'DEBUG' if DEBUG else 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
@@ -278,31 +283,28 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOGS_DIR, "{data}_custom.log".format(data=time.strftime('%Y_%m_%d'))),
-            'maxBytes': 300 * 1024 * 1024,
-            'backupCount': 10,
-            'formatter': 'verbose',
+            'formatter': 'custom',
             'encoding': 'utf-8'
         },
-        'info': {
+        'system': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOGS_DIR, "{data}_system.log".format(data=time.strftime('%Y_%m_%d'))),
-            'maxBytes': 300 * 1024 * 1024,
-            'backupCount': 10,
             'formatter': 'verbose',
             'encoding': 'utf-8'
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['info'],
-            'propagate': True,
+            'handlers': ['console', "system"],
+            'level': 'INFO' if os.getenv('DEBUG', False) == 'True' else 'DEBUG',
+            'propagate': False
         },
         'custom': {
             'handlers': ['custom'],
             'level': 'INFO',
-            'propagate': True,
-        },
+            'propagate': False,
+        }
     }
 }
 custom_log = logging.getLogger('custom')
