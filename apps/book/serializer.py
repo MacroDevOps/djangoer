@@ -11,8 +11,8 @@ class BookFactorySerializer(serializers.ModelSerializer):
 
 
 class BookModelsSerializer(serializers.ModelSerializer):
-    factory = BookFactorySerializer(read_only=True)
-    username = UserSerializer(read_only=True)
+    factory = BookFactorySerializer(required=True)
+    username = UserSerializer(required=True)
 
     class Meta:
         model = Book
