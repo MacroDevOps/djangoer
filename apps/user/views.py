@@ -6,17 +6,13 @@ from rest_framework.views import APIView
 from djangoer.settings import custom_log
 from . import tasks
 from .models import UserProfile
-from rest_framework import serializers, viewsets
-
-
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ["id", 'username', 'email', 'is_staff', "user_type"]
+from rest_framework import viewsets
 
 
 # ViewSets define the view behavior.
+from .serializer import UserSerializer
+
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserSerializer
