@@ -8,7 +8,7 @@ choose icon from https://fontawesome.com/v4.7.0/icons/
 
 
 class BookAdmin(object):
-    list_display = ["name", "author", "factory"]
+    list_display = ["name", "author", "username", "factory"]
     model_icon = 'fa fa-book'
 
 

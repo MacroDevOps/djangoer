@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from book.models import Book, BookFactory
+from user.serializer import UserSerializer
 
 
 class BookFactorySerializer(serializers.ModelSerializer):
@@ -10,7 +11,8 @@ class BookFactorySerializer(serializers.ModelSerializer):
 
 
 class BookModelsSerializer(serializers.ModelSerializer):
-    factory = BookFactorySerializer()
+    factory = BookFactorySerializer(read_only=True)
+    username = UserSerializer(read_only=True)
 
     class Meta:
         model = Book
