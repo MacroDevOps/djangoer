@@ -19,6 +19,7 @@ REST_FRAMEWORK = {
     )
 }
 ```
+
 2. 具体的视图中经过permission_classes属性来设置
 ```shell
 from rest_framework.permissions import IsAuthenticated
@@ -41,7 +42,6 @@ class ExampleView(APIView):
 是否能够访问数据对象， view表示当前视图， obj为数据对象对象
 
 
-例如
 ```python
 class MyPermission(BasePermission):
     """

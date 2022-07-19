@@ -22,6 +22,10 @@ urlpatterns = [
 
     path('set_user/', views.UserViewSets.as_view()),
 
+    path('add_user/', views.UserInfoViewSet.as_view({"get": "get_list", "post": "create_user"})),
+    path('add_user/<int:pk>/',
+            views.UserInfoViewSetPk.as_view({"get": "user_get", "put": "user_put", "delete": "user_detele"})),
+
     re_path('^aaa/(?P<pk>\d+)/$', views.MyBase1.as_view()),
     url('send_email/', SendEmail.as_view(), name='send_email'),
 ]

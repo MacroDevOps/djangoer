@@ -12,6 +12,7 @@ from . import tasks
 from .models import UserProfile
 from rest_framework import viewsets
 
+
 # ViewSets define the view behavior.
 from .serializer import UserSerializer
 
@@ -22,24 +23,21 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 def send_email(request, *args, **kwargs):
-    res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com", ])
+    res = tasks.send_email.delay("durgin", "hello world", ["dejinx@qq.com",])
     return JsonResponse({'status': 'successful', 'task_id': res.task_id})
 
 
 class MyBase(APIView):
     """
     最基础的API测试连接。
-
     """
+    def get(self, request):
 
-    def get(self, request, name):
-        if cache.get("message"):
-            custom_log.warning("{user}: 发布了devops最新系统".format(user=request.user))
-            return Response({"message": cache.get("message")})
+        data = request.query_params
+        if data.get("name"):
+            return Response(data=data, status=status.HTTP_200_OK)
         else:
-            cache.set("message", f"{name} Ha Ha", timeout=10)
-            print("设置缓存")
-            return Response({"message": "Ha Ha"})
+            return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
 
 class SendEmail(APIView):
@@ -174,9 +172,7 @@ class UserExtGenViewPk(GenericAPIView, ListModelMixin, DestroyModelMixin, Retrie
     def delete(self, request, pk):
         return self.destroy(request, pk)
 
-"""
 
-"""
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveUpdateDestroyAPIView
 
 
@@ -184,6 +180,43 @@ class UserViewSets(ListAPIView, CreateAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserSerializer
 
-from rest_framework.viewsets import ViewSet
+
+# 常见的视图集由于这
+from rest_framework.viewsets import ViewSet, GenericViewSet, ReadOnlyModelViewSet, ModelViewSet
 
 
+class UserInfoViewSet(ViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserSerializer
+
+    def get_list(self, request):
+        user_list = UserProfile.objects.all()
+        serializer = UserSerializer(instance=user_list, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    def create_user(self, request):
+        data = request.data
+        serializer = UserSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+class UserInfoViewSetPk(ViewSet):
+    def user_get(self, request, pk):
+        user = UserProfile.objects.get(pk=pk)
+        serializer = UserSerializer(instance=user)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    def user_put(self, request, pk):
+        data = request.data
+        user = UserProfile.objects.get(pk=pk)
+        serializer = UserSerializer(instance=user, data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_404_NOT_FOUND)
+
+    def user_detele(self, request, pk):
+        UserProfile.objects.get(id=pk).delete()
+
+        return Response(data={}, status=status.HTTP_404_NOT_FOUND)

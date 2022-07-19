@@ -91,7 +91,7 @@ from rest_framework import routers
 reouter = routers.DefaultRouter() # 提供了首页的url
 routers.SimpleRouter() # 没有提供首页的url
 reouter.register("basic", NameVietSet.as_view(), basename="basic")
-# 
+# [name='userinfo-detail']>, <URLPattern '^$' [name='api-root']>, <URLPattern '^\.(?P<format>[a-z0-9]+)/?$' [name='api-root']>
 ```
 
 ## action 自定义相关
@@ -99,7 +99,7 @@ reouter.register("basic", NameVietSet.as_view(), basename="basic")
 from rest_framework.decorators import action
 @action(methods=["GET"], detail=False, url_path="")
 def login(self, request):
-    
+
     return Response()
 ```
 
@@ -108,6 +108,3 @@ def login(self, request):
 2. 代码控制外键
 3. 嵌套serializer
 4. depth=1
-
-## 
-
