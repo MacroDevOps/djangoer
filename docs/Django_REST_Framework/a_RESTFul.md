@@ -79,15 +79,30 @@ DRF 除了在数据序列化部份的简写之外，还在视图中提供了简�
 5. `DestroyModelMixin` delete()
 
 ### ViewSet 9个试图子类
+1. 基础的增删改查
+2，组合方法
+```python
 
+```
 
 ## drf router 注册
-
+```python
+DefaultRoutor()
+SimpleRoutor()
+```
 
 ## action 自定义相关
-
+```python
+@action()
+def login(self, request):
+    return Response()
+```
 
 ## 嵌套类序列化 - 外键
+1. 外键
+2. 代码控制外键
+3. 嵌套serializer
+4. depth=1
 
 ## 
 
