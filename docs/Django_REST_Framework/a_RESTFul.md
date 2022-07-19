@@ -41,9 +41,9 @@ DRF 除了在数据序列化部份的简写之外，还在视图中提供了简�
 ## View 类
 ### View基类
 1. APIView， `from rest_framework.view import APIView`
-   1. APIView 与django view之间的不同点。
+   1. APIView 与django view之间的不同点。   
       1. 传入到视图方法中的是DRF的request对象， 而不是Django的request。
-      2. 返回也是使用的DRF的response对象， 会自动适配前端需要的数据类型。
+      2. 返回也是使用的DRF的response对象， 会自动适配前端需要的数据类型，在浏览器的模式下会自动生成相关的文档方式。
       3. 任何的 APIException都会被捕获，并处理成合适的响应信息到客户端。
          1. django
          2. DRF
@@ -51,9 +51,9 @@ DRF 除了在数据序列化部份的简写之外，还在视图中提供了简�
          1. django as_view 
          2. drf as_view 
          3. APIView 新增的类
-            **authentication_classes** 身份认证
-            **permission_classes** 权限检查
-            **throttle_classes** 流量控制
+            - **authentication_classes** 身份认证
+            - **permission_classes** 权限检查
+            - **throttle_classes** 流量控制
       5. get put post create delete
 
 2. GenericAPIView `from rest_framework.generics import GenericAPIView`
@@ -80,21 +80,26 @@ DRF 除了在数据序列化部份的简写之外，还在视图中提供了简�
 
 ### ViewSet 9个试图子类
 1. 基础的增删改查
-2，组合方法
+2. 组合方法
 ```python
 
 ```
 
 ## drf router 注册
 ```python
-DefaultRoutor()
-SimpleRoutor()
+from rest_framework import routers
+reouter = routers.DefaultRouter() # 提供了首页的url
+routers.SimpleRouter() # 没有提供首页的url
+reouter.register("basic", NameVietSet.as_view(), basename="basic")
+# 
 ```
 
 ## action 自定义相关
 ```python
-@action()
+from rest_framework.decorators import action
+@action(methods=["GET"], detail=False, url_path="")
 def login(self, request):
+    
     return Response()
 ```
 
