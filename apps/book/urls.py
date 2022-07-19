@@ -4,7 +4,7 @@ from rest_framework import routers
 
 from book.views import BookViewSet, BookFactoryViewSet
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 
 router.register(r'basic', BookViewSet, basename='book')
 router.register(r'factory', BookFactoryViewSet, basename='book')

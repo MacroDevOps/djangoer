@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.urls import re_path, include
+from django.urls import re_path, include, path
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
@@ -8,12 +8,20 @@ from .views import UserViewSet, SendEmail
 
 router = routers.DefaultRouter()
 router.register(r'basic', UserViewSet, basename='userinfo')
-
+print(router.urls)
 app_name = 'user'
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url('login/', obtain_jwt_token, name="login"),
-    re_path(r'^base/(?P<name>\d+)/$', views.MyBase.as_view()),
+    url('base/', views.MyBase.as_view()),
+    path('gen_user/', views.UserGenView.as_view()),
+    re_path('^gen_user/(?P<pk>\d+)/$', views.UserGenInfoView.as_view()),
+    path('mix_user/', views.UserExtGenView.as_view()),
+    path('mix_user/<int:pk>/', views.UserExtGenViewPk.as_view()),
+
+    path('set_user/', views.UserViewSets.as_view()),
+
+    re_path('^aaa/(?P<pk>\d+)/$', views.MyBase1.as_view()),
     url('send_email/', SendEmail.as_view(), name='send_email'),
 ]
