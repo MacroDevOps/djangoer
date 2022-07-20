@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'rest_framework.authtoken',
     'corsheaders',
+    'rules',
     'book'
 ]
 
@@ -73,6 +74,7 @@ LDAP_URL = 'ldap://192.168.10.2:389'
 AUTH_USER_MODEL = 'user.UserProfile'
 
 AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
     'user.auth.CumstomBackend',
 )
 
@@ -298,7 +300,8 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', "system"],
-            'level': 'INFO' if os.getenv('DEBUG', False) == 'True' else 'DEBUG',
+            # 'level': 'INFO' if os.getenv('DEBUG', False) == 'True' else 'DEBUG',
+            'level': 'INFO',
             'propagate': False
         },
         'custom': {

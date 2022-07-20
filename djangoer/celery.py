@@ -17,6 +17,9 @@ custom_log = settings.custom_log
 
 
 class CustomTask(Task, ABC):
+    """
+    通用任务的执行封装
+    """
     def on_success(self, retval, task_id, args, kwargs):
         """
         celery life cycle when task on success
@@ -47,6 +50,9 @@ class CustomTask(Task, ABC):
 
 
 class CustomOnceTask(QueueOnce, Task, ABC):
+    """
+    定时任务的分装，
+    """
     def on_success(self, retval, task_id, args, kwargs):
         """
         celery life cycle when task on success

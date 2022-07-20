@@ -15,6 +15,7 @@ Including another URLconf
 """
 import os
 from django.conf.urls import url, include
+from django.contrib import admin
 from django.views.generic import RedirectView
 from rest_framework import routers
 from rest_framework.documentation import include_docs_urls
@@ -29,7 +30,8 @@ urlpatterns = [
     url(r'^user/', include('user.urls', namespace="user")),
     url(r'^book/', include('book.urls', namespace="book")),
     url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^xadmin/', xadmin.site.urls),
+    url(r'^xadmin/', xadmin.site.urls, name="xadmin"),
+    url(r'^admin/', admin.site.urls, name="admin"),
     url(r'^docs/', include_docs_urls(title="DevOps API Docs"), name="docs"),
     url(r'^favicon.ico$', RedirectView.as_view(url=os.path.join(settings.STATIC_URL,"favicon.ico"), permanent=True)),
 ]

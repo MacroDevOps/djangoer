@@ -33,3 +33,6 @@ SESSION_CACHE_ALIAS = "default"
 ```python
 
 ```
+
+1. 对象级权限控制 rules
+- [ ][Object level permissions support](https://github.com/dfunckt/django-rules)
