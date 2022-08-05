@@ -25,7 +25,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, os.path.join(BASE_DIR, "extra_apps"))
-PACKAGE_ROOT = os.path.join(BASE_DIR, "package")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -54,6 +53,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'rest_framework.authtoken',
     'corsheaders',
+    'document',
+    'mdeditor',
     'rules',
     'book'
 ]
@@ -156,6 +157,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+MEDIA_URL = '/media/'
 # Redis cache configure
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # CACHES = {
@@ -312,3 +317,8 @@ LOGGING = {
     }
 }
 custom_log = logging.getLogger('custom')
+
+# Markdown
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+

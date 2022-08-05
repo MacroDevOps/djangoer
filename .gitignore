@@ -5,3 +5,4 @@ media
 redis_data
 logs
 .env
+*migrations/
