@@ -122,16 +122,13 @@ services:
       retries: 6
 
   flower:
-    image: macroldj/flower:v1
+    image: macroldj/flower:v2
     working_dir: /home/workspace
     ports:
       - "5555:5555"
-    environment:
-      - RABBITMQ_IP=${RABBITMQ_IP}
-      - RABBITMQ_USER=${RABBITMQ_USER}
-      - RABBITMQ_PASSWD=${RABBITMQ_PASSWD}
+    command: ["celery","--broker=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWD}@${RABBITMQ_IP}:5672//", "flower"]
     healthcheck:
-      test: curl --fail http://127.0.0.1:5555||exit 1
-      interval: 50s
+      test: curl --fail http://localhost:5555||exit 1
+      interval: 30s
       timeout: 5s
       retries: 6
