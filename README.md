@@ -30,3 +30,17 @@ http://127.0.0.1/docs/
 http://127.0.0.1/xadmin/
 # username: lidj passwd:12345
 ```
+
+4. windows 下的调试命令
+```shell
+# 1. 启动 django service
+python manage.py runserver 127.0.0.1:8000
+# ! 如果你用的编辑器是pycharm本项目自带的的run下有一些非常方便的启动命令，可以支撑你更快的搭建开发环境
+
+
+# 2. 启动 django celery
+celery -A djangoer worker -l info
+
+# 3. django beat 
+celery -A djangoer beat -l info
+```
