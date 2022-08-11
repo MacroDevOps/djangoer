@@ -39,7 +39,7 @@ python manage.py runserver 127.0.0.1:8000
 
 
 # 2. 启动 django celery
-celery -A djangoer worker -l info
+celery -A gianter worker -l info
 
 # 3. django beat 
 celery -A djangoer beat -l info
