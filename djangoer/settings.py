@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'document',
     'mdeditor',
     'rules',
-    'book'
+    'book',
+    'oauth2_provider'
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -184,13 +186,17 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_THROTTLE_RATES': {
         'anon': '30/m',
@@ -321,4 +327,11 @@ custom_log = logging.getLogger('custom')
 # Markdown
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-
+# oauth2 provider settings
+OAUTH2_PROVIDER = {
+    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:8008/oauth/authorize/',
+    # 'RESOURCE_SERVER_AUTH_TOKEN': '3yUqsWtwKYKHnfivFcJu',
+    'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': ('n6QaGNQK8ED2qgsDV4yoQGZh1rTcDBZu1cfDMzbK', 'pbkdf2_sha256$260000$LNaWklSTD9bfAlJGcIo6Rx$5RqboDVjFyK2/zojPEGyA226fDkJsqp3b31sLeUSp6Y='),
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
